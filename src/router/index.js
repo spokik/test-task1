@@ -1,29 +1,29 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Green from '../views/Green.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'Green',
+    component: Green
   },
   {
     path: '/red',
     name: 'Red',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Red.vue')
+    component: () => import('../views/Red.vue')
   },
   {
     path: '/Yellow',
-    name: 'Red',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Yellow.vue')
+    name: 'Yellow',
+    component: () => import('../views/Yellow.vue')
   },
   {
     path: '/Green',
-    name: 'Red',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Green.vue')
+    name: 'Green',
+    component: () => import('../views/Green.vue')
   }
 ]
 
