@@ -19,6 +19,15 @@ export default new Vuex.Store({
     onGreen (state) {
       this.state.greenLight = true
     },
+    offRed (state) {
+      this.state.redLight = false
+    },
+    offYelloe (state) {
+      this.state.yellowLight = false
+    },
+    offGreen (state) {
+      this.state.greenLight = false
+    },
     offAlllamp (state) {
       this.state.redLight = false
       this.state.yellowLight = false
@@ -26,13 +35,28 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    activeLamp ({ commit }, light) {
+    activeLamp ({ commit, dispatch }, light) {
       if (light === 'RED') {
         commit('onRed')
       } else if (light === 'YELLOW') {
         commit('onYelloe')
       } else if (light === 'GREEN') {
         commit('onGreen')
+      } else {
+        commit('offAlllamp')
+      }
+      dispatch('disableOtherLamp', light)
+    },
+    disableOtherLamp ({ commit }, light) {
+      if (light === 'RED') {
+        commit('offGreen')
+        commit('offYelloe')
+      } else if (light === 'YELLOW') {
+        commit('offGreen')
+        commit('offRed')
+      } else if (light === 'GREEN') {
+        commit('offYelloe')
+        commit('offRed')
       } else {
         commit('offAlllamp')
       }
