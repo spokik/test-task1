@@ -1,14 +1,19 @@
 <template>
   <div class="green">
-    Желтая лампа
+    Желтая лампа - {{state.yellowLight}}
   </div>
 </template>
 
 <script>
+import store from '../store/index'
+
 export default {
   name: 'Yellow-Lamp',
-  props: {
-    msg: String
+
+  computed: {
+    state () {
+      return store.state
+    }
   }
 }
 </script>
