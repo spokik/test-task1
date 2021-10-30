@@ -30,7 +30,8 @@ export default {
       }
     },
     time (val, oldVal) {
-      console.log(val)
+      this.$store.dispatch('saveStateOnLocal', { time: val, Loop: this.$store.state.Loop })
+
       if (val > 3000) {
         this.isActive = true
       }
@@ -49,11 +50,20 @@ export default {
   },
   methods: {
     timer () {
-      const timeout = this.state.cycle[this.state.Loop].timeout
-      this.time = timeout
-      setInterval(() => {
-        this.time -= timeout / timeout * 1000
-      }, timeout / timeout * 1000)
+      const load = JSON.parse(localStorage.getItem('save'))
+      if (load.time > 1000) {
+        const timeout = load.time
+        this.time = timeout
+        setInterval(() => {
+          this.time -= timeout / timeout * 1000
+        }, timeout / timeout * 1000)
+      } else {
+        const timeout = this.state.cycle[this.state.Loop].timeout
+        this.time = timeout
+        setInterval(() => {
+          this.time -= timeout / timeout * 1000
+        }, timeout / timeout * 1000)
+      }
     }
   }
 }

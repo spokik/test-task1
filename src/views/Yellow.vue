@@ -18,7 +18,12 @@ import YellowLamp from '@/components/Yellow-Lamp.vue'
 export default {
   name: 'Yellow',
   mounted () {
-    store.dispatch('openRout', 1)
+    const load = JSON.parse(localStorage.getItem('save'))
+    if ((load && load.time > 1000)) {
+      store.dispatch('openRout', { index: load.Loop, timeout: load.time })
+    } else {
+      store.dispatch('openRout', { index: 1 })
+    }
     this.$store.watch(
       (state, getters) => state.Loop,
       (newValue, oldValue) => {

@@ -101,7 +101,7 @@ export default new Vuex.Store({
         commit('SelectLoop', index)
       }
     },
-    openRout ({ commit, dispatch }, index) {
+    openRout ({ commit, dispatch }, { index, timeout }) {
       dispatch('firstStart', index)
       const iterationArr = this.state.cycle[this.state.Loop]
       dispatch('activeLamp', iterationArr.flag)
@@ -111,8 +111,12 @@ export default new Vuex.Store({
         } else {
           commit('destroyLoop')
         }
-      }, iterationArr.timeout)
+      }, timeout || iterationArr.timeout)
+    },
+    saveStateOnLocal ({ commit, dispatch }, data) {
+      localStorage.setItem('save', JSON.stringify(data))
     }
+
   },
   modules: {
   }
