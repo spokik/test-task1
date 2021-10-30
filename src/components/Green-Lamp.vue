@@ -1,5 +1,5 @@
 <template>
-  <div class="green-lamp" v-bind:class="{ active: state.greenLight }">
+  <div class="green-lamp" v-bind:class="{ active: isActive }">
    <div class="inner">{{time === 0 ? '' : time / 1000}}</div>
   </div>
 </template>
@@ -11,7 +11,8 @@ export default {
   name: 'Green-Lamp',
   data () {
     return {
-      time: 0
+      time: 0,
+      isActive: false
     }
   },
   computed: {
@@ -26,6 +27,23 @@ export default {
     statusTimer (val, oldVal) {
       if (val) {
         this.timer()
+      }
+    },
+    time (val, oldVal) {
+      console.log(val)
+      if (val > 3000) {
+        this.isActive = true
+      }
+      if (val === 3000) {
+        setInterval(() => {
+          this.isActive = !this.isActive
+        }, 300)
+      }
+      if (val === 0) {
+        setTimeout(() => {
+          this.isActive = false
+          console.log('end')
+        }, 500)
       }
     }
   },
