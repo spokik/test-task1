@@ -1,6 +1,6 @@
 <template>
   <div class="red-lamp" v-bind:class="{ active: isActive }">
-   <div class="inner">{{time === 0 ? '' : time / 1000}}</div>
+   <div class="inner">{{time === 0 ? '' : Math.floor(time / 1000)}}</div>
   </div>
 </template>
 
@@ -50,18 +50,18 @@ export default {
   methods: {
     timer () {
       const load = JSON.parse(localStorage.getItem('save'))
-      if (load.time > 1000) {
+      if (load.time > 100) {
         const timeout = load.time
         this.time = timeout
         setInterval(() => {
-          this.time -= timeout / timeout * 1000
-        }, timeout / timeout * 1000)
+          this.time -= timeout / timeout * 100
+        }, timeout / timeout * 100)
       } else {
         const timeout = this.state.cycle[this.state.Loop].timeout
         this.time = timeout
         setInterval(() => {
-          this.time -= timeout / timeout * 1000
-        }, timeout / timeout * 1000)
+          this.time -= timeout / timeout * 100
+        }, timeout / timeout * 100)
       }
     }
   }

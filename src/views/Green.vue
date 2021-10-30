@@ -17,8 +17,8 @@ export default {
   name: 'green',
   mounted () {
     const load = JSON.parse(localStorage.getItem('save'))
-    if (load && load.time > 1000) {
-      store.dispatch('openRout', { index: load.Loop, timeout: load.time })
+    if (load && load.time > 100) {
+      store.dispatch('openRout', { index: 2, timeout: load.time })
     } else {
       store.dispatch('openRout', { index: 2 })
     }
