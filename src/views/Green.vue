@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="grey-box">
     <h1>green</h1>
     <RedLamp/>
     <YellowLamp/>

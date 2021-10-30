@@ -11,6 +11,17 @@
 </template>
 
 <style>
+.grey-box {
+  background-color: rgba(37, 37, 37, 0.829);
+  width: 250px;
+  height: 400px;
+  margin:0 auto 0;
+  padding-bottom: 20px;
+
+}
+h1 {
+  color:honeydew;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

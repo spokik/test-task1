@@ -1,6 +1,6 @@
 <template>
   <div class="red-lamp" v-bind:class="{ active: state.redLight }">
-    {{time / 1000}}
+   <div class="inner">{{time === 0 ? '' : time / 1000}}</div>
   </div>
 </template>
 
@@ -51,7 +51,12 @@ export default {
   margin:0 auto;
 }
 .active {
-  background-color: rgb(233, 51, 51);
+  background-color: rgb(248, 14, 14);
+}
+.inner {
+    display: inline-block;
+    margin-top: 35px;
+    font-size: 20px;
 }
 h3 {
   margin: 40px 0 0;

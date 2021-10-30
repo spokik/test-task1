@@ -1,6 +1,6 @@
 <template>
   <div class="green-lamp" v-bind:class="{ active: state.greenLight }">
-    {{time / 1000}}
+   <div class="inner">{{time === 0 ? '' : time / 1000}}</div>
   </div>
 </template>
 
@@ -44,11 +44,18 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .green-lamp {
+  text-align: center;
   width: 100px;
   height: 100px;
   background-color: rgb(35, 95, 35);
   border-radius: 50%;
   margin:0 auto;
+
+}
+.inner {
+    display: inline-block;
+    margin-top: 35px;
+    font-size: 20px;
 }
 .active {
   background-color:  rgb(64, 212, 64);

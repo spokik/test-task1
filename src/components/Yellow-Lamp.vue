@@ -1,6 +1,6 @@
 <template>
   <div class="yellow-lamp" v-bind:class="{ active: state.yellowLight }">
-    {{time / 1000}}
+   <div class="inner">{{time === 0 ? '' : time / 1000}}</div>
   </div>
 </template>
 
@@ -52,6 +52,11 @@ export default {
 }
 .active {
   background-color: rgb(212, 210, 52);
+}
+.inner {
+    display: inline-block;
+    margin-top: 35px;
+    font-size: 20px;
 }
 h3 {
   margin: 40px 0 0;
