@@ -9,22 +9,22 @@ export default new Vuex.Store({
       {
         rout: 'red',
         flag: 'RED',
-        timeout: 1000 // 10000
+        timeout: 10000 // 10000
       },
       {
         rout: 'yellow',
-        flag: 'Yellow',
-        timeout: 1000 // 3000
+        flag: 'YELLOW',
+        timeout: 3000 // 3000
       },
       {
         rout: 'green',
         flag: 'GREEN',
-        timeout: 1000 // 15000
+        timeout: 15000 // 15000
       },
       {
         rout: 'yellow',
-        flag: 'Yellow',
-        timeout: 3
+        flag: 'YELLOW',
+        timeout: 3000 // 3000
       }
     ],
     Loop: null,
@@ -108,7 +108,7 @@ export default new Vuex.Store({
       setTimeout(() => {
         if (this.state.Loop < 3) {
           commit('plusLoop')
-        } else if (this.state.Loop === 3) {
+        } else {
           commit('destroyLoop')
         }
       }, iterationArr.timeout)

@@ -19,12 +19,10 @@ export default {
   name: 'red',
   mounted () {
     store.dispatch('openRout', 0)
-
     this.$store.watch(
       (state, getters) => state.Loop,
       (newValue, oldValue) => {
-        console.log('watch is work')
-        this.$router.push(this.$store.state.cycle[newValue].rout)
+        this.$router.push(this.$store.state.cycle[newValue].rout).catch(() => {})
       }
     )
   },

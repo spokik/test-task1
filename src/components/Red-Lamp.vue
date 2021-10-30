@@ -1,6 +1,6 @@
 <template>
-  <div class="green">
-    Красная лампа - {{state.redLight}}
+  <div class="red-lamp" v-bind:class="{ active: state.redLight }">
+    {{time / 1000}}
   </div>
 </template>
 
@@ -9,10 +9,33 @@ import store from '../store/index'
 
 export default {
   name: 'Red-Lamp',
-
+  data () {
+    return {
+      time: 0
+    }
+  },
   computed: {
     state () {
       return store.state
+    },
+    statusTimer () {
+      return store.state.redLight
+    }
+  },
+  watch: {
+    statusTimer (val, oldVal) {
+      if (val) {
+        this.timer()
+      }
+    }
+  },
+  methods: {
+    timer () {
+      const timeout = this.state.cycle[this.state.Loop].timeout
+      this.time = timeout
+      setInterval(() => {
+        this.time -= timeout / timeout * 1000
+      }, timeout / timeout * 1000)
     }
   }
 }
@@ -20,6 +43,16 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.red-lamp {
+  width: 100px;
+  height: 100px;
+  background-color: rgb(136, 52, 52);
+  border-radius: 50%;
+  margin:0 auto;
+}
+.active {
+  background-color: rgb(233, 51, 51);
+}
 h3 {
   margin: 40px 0 0;
 }
