@@ -5,6 +5,29 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    cycle: [
+      {
+        rout: 'red',
+        flag: 'RED',
+        timeout: 1000 // 10000
+      },
+      {
+        rout: 'yellow',
+        flag: 'Yellow',
+        timeout: 1000 // 3000
+      },
+      {
+        rout: 'green',
+        flag: 'GREEN',
+        timeout: 1000 // 15000
+      },
+      {
+        rout: 'yellow',
+        flag: 'Yellow',
+        timeout: 3
+      }
+    ],
+    Loop: null,
     redLight: false,
     yellowLight: false,
     greenLight: false
@@ -32,6 +55,15 @@ export default new Vuex.Store({
       this.state.redLight = false
       this.state.yellowLight = false
       this.state.greenLight = false
+    },
+    SelectLoop (state, index) {
+      this.state.Loop = index
+    },
+    plusLoop (state) {
+      this.state.Loop += 1
+    },
+    destroyLoop (state) {
+      this.state.Loop = 0
     }
   },
   actions: {
@@ -60,6 +92,26 @@ export default new Vuex.Store({
       } else {
         commit('offAlllamp')
       }
+    },
+    SelectLoop ({ commit }, index) {
+      commit('SelectLoop', index)
+    },
+    firstStart ({ commit }, index) {
+      if (this.state.Loop === null) {
+        commit('SelectLoop', index)
+      }
+    },
+    openRout ({ commit, dispatch }, index) {
+      dispatch('firstStart', index)
+      const iterationArr = this.state.cycle[this.state.Loop]
+      dispatch('activeLamp', iterationArr.flag)
+      setTimeout(() => {
+        if (this.state.Loop < 3) {
+          commit('plusLoop')
+        } else if (this.state.Loop === 3) {
+          commit('destroyLoop')
+        }
+      }, iterationArr.timeout)
     }
   },
   modules: {

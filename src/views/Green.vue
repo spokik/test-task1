@@ -1,9 +1,9 @@
 <template>
   <div class="">
     <h1>green</h1>
-    <GreenLamp/>
-    <YellowLamp/>
     <RedLamp/>
+    <YellowLamp/>
+    <GreenLamp/>
   </div>
 </template>
 
@@ -16,7 +16,14 @@ import YellowLamp from '@/components/Yellow-Lamp.vue'
 export default {
   name: 'green',
   mounted () {
-    store.dispatch('activeLamp', 'GREEN')
+    store.dispatch('openRout', 2)
+    this.$store.watch(
+      (state, getters) => state.Loop,
+      (newValue, oldValue) => {
+        console.log('watch is work')
+        this.$router.push(this.$store.state.cycle[newValue].rout)
+      }
+    )
   },
   components: {
     GreenLamp,
