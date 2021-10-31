@@ -19,10 +19,10 @@ export default {
   name: 'red',
   mounted () {
     const load = JSON.parse(localStorage.getItem('save'))
-    if ((load && load.time > 100)) {
+    if ((load && load.time > 100 && load.Loop === 0)) {
       store.dispatch('openRout', { index: 0, timeout: load.time })
     } else {
-      store.dispatch('openRout', { index: 0 })
+      store.dispatch('openRout', { index: 0, timeout: this.$store.state.cycle[0].timeout })
     }
     this.$store.watch(
       (state, getters) => state.Loop,

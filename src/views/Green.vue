@@ -17,10 +17,11 @@ export default {
   name: 'green',
   mounted () {
     const load = JSON.parse(localStorage.getItem('save'))
-    if (load && load.time > 100) {
+    if (load && load.time > 100 && load.Loop === 2) {
       store.dispatch('openRout', { index: 2, timeout: load.time })
     } else {
-      store.dispatch('openRout', { index: 2 })
+      store.dispatch('openRout', { index: 2, timeout: this.$store.state.cycle[2].timeout })
+      console.log('else')
     }
 
     this.$store.watch(

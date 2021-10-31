@@ -51,7 +51,7 @@ export default {
   methods: {
     timer () {
       const load = JSON.parse(localStorage.getItem('save'))
-      if (load.time > 100) {
+      if (load.time > 100 && load.Loop === 1) {
         const timeout = load.time
         this.time = timeout
         setInterval(() => {

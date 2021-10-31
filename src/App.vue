@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/red">red</router-link> |
-      <router-link to="/yellow">yellow</router-link> |
-      <router-link to="/green">green</router-link> |
+      <a href="/">Home</a> |
+      <a href="/red">red</a> |
+      <a href="/yellow">yellow</a> |
+      <a href="/green">green</a> |
     </div>
     <router-view/>
   </div>
