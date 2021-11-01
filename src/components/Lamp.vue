@@ -1,5 +1,10 @@
 <template>
-  <div class="red-lamp" v-bind:class="{ active: isActive, }">
+  <div class="" v-bind:class="{
+    active: !isActive,
+      'red-lamp': isRed,
+      'green-lamp': isGreen,
+      'yellow-lamp': isYellow
+  }">
    <div class="inner">{{time === 0 ? '' : Math.floor(time / 1000)}}</div>
   </div>
 </template>
@@ -8,19 +13,41 @@
 import store from '../store/index'
 
 export default {
-  name: 'Red-Lamp',
+  name: 'Lamp',
   data () {
     return {
       time: 0,
       isActive: false
     }
   },
+  props: { light: String },
   computed: {
     state () {
       return store.state
     },
     statusTimer () {
-      return store.state.redLight
+      return store.state.greenLight
+    },
+    isRed () {
+      if (this.light === 'RED') {
+        return true
+      } else {
+        return false
+      }
+    },
+    isGreen () {
+      if (this.light === 'GREEN') {
+        return true
+      } else {
+        return false
+      }
+    },
+    isYellow () {
+      if (this.light === 'YELLOW') {
+        return true
+      } else {
+        return false
+      }
     }
   },
   watch: {
@@ -31,7 +58,6 @@ export default {
     },
     time (val, oldVal) {
       this.$store.dispatch('saveStateOnLocal', { time: val, Loop: this.$store.state.Loop })
-
       if (val > 3000) {
         this.isActive = true
       }
@@ -43,6 +69,7 @@ export default {
       if (val === 0) {
         setTimeout(() => {
           this.isActive = false
+          console.log('end')
         }, 500)
       }
     }
@@ -50,7 +77,7 @@ export default {
   methods: {
     timer () {
       const load = JSON.parse(localStorage.getItem('save'))
-      if (load.time > 100 && load.Loop === 0) {
+      if (load.time > 100 && load.Loop === 2) {
         const timeout = load.time
         this.time = timeout
         setInterval(() => {
@@ -70,6 +97,15 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.green-lamp {
+  text-align: center;
+  width: 100px;
+  height: 100px;
+  background-color: rgb(35, 95, 35);
+  border-radius: 50%;
+  margin:0 auto;
+
+}
 .red-lamp {
   width: 100px;
   height: 100px;
@@ -84,13 +120,19 @@ export default {
   border-radius: 50%;
   margin:0 auto;
 }
-.active {
-  background-color: rgb(248, 14, 14);
-}
 .inner {
     display: inline-block;
     margin-top: 35px;
     font-size: 20px;
+}
+.active-red {
+  background-color:  rgb(64, 212, 64);
+}
+.active-yellow {
+  background-color:  rgb(64, 212, 64);
+}
+.active-green {
+  background-color:  rgb(64, 212, 64);
 }
 h3 {
   margin: 40px 0 0;

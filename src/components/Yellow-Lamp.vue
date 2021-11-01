@@ -43,7 +43,6 @@ export default {
       if (val === 0) {
         setTimeout(() => {
           this.isActive = false
-          console.log('end')
         }, 500)
       }
     }

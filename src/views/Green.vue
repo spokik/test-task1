@@ -4,6 +4,9 @@
     <RedLamp/>
     <YellowLamp/>
     <GreenLamp/>
+    <Lamp light='GREEN'/>
+    <Lamp light='RED'/>
+    <Lamp light='YELLOW'/>
   </div>
 </template>
 
@@ -12,6 +15,7 @@ import store from '../store/index'
 import GreenLamp from '@/components/Green-Lamp.vue'
 import RedLamp from '@/components/Red-Lamp.vue'
 import YellowLamp from '@/components/Yellow-Lamp.vue'
+import Lamp from '@/components/Lamp.vue'
 
 export default {
   name: 'green',
@@ -21,7 +25,6 @@ export default {
       store.dispatch('openRout', { index: 2, timeout: load.time })
     } else {
       store.dispatch('openRout', { index: 2, timeout: this.$store.state.cycle[2].timeout })
-      console.log('else')
     }
 
     this.$store.watch(
@@ -34,7 +37,8 @@ export default {
   components: {
     GreenLamp,
     RedLamp,
-    YellowLamp
+    YellowLamp,
+    Lamp
   },
   computed: {
     state () {
