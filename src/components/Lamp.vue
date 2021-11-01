@@ -1,9 +1,11 @@
 <template>
   <div class="" v-bind:class="{
-    active: !isActive,
-      'red-lamp': isRed,
-      'green-lamp': isGreen,
-      'yellow-lamp': isYellow
+    'active-red': isRedActive && isRed,
+    'active-green': isGreenActive  && isGreen,
+    'active-yellow': isYellowActive  && isYellow,
+    'red-lamp': isRed,
+    'green-lamp': isGreen,
+    'yellow-lamp': isYellow
   }">
    <div class="inner">{{time === 0 ? '' : Math.floor(time / 1000)}}</div>
   </div>
@@ -48,6 +50,15 @@ export default {
       } else {
         return false
       }
+    },
+    isRedActive () {
+      return store.state.nowSignal.flag === 'RED'
+    },
+    isGreenActive () {
+      return store.state.nowSignal.flag === 'GREEN'
+    },
+    isYellowActive () {
+      return store.state.nowSignal.flag === 'YELLOW'
     }
   },
   watch: {
@@ -126,10 +137,10 @@ export default {
     font-size: 20px;
 }
 .active-red {
-  background-color:  rgb(64, 212, 64);
+  background-color:  rgb(248, 14, 14);
 }
 .active-yellow {
-  background-color:  rgb(64, 212, 64);
+  background-color:  rgb(212, 210, 52);
 }
 .active-green {
   background-color:  rgb(64, 212, 64);

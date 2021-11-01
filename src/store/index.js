@@ -7,27 +7,32 @@ export default new Vuex.Store({
   state: {
     cycle: [
       {
+        id: 0,
         rout: 'red',
         flag: 'RED',
         timeout: 10000 // 10000
       },
       {
+        id: 1,
         rout: 'yellow',
         flag: 'YELLOW',
         timeout: 3000 // 3000
       },
       {
+        id: 2,
         rout: 'green',
         flag: 'GREEN',
         timeout: 15000 // 15000
       },
       {
+        id: 3,
         rout: 'yellow',
         flag: 'YELLOW',
         timeout: 3000 // 3000
       }
     ],
     Loop: null,
+    nowSignal: null,
     redLight: false,
     yellowLight: false,
     greenLight: false
@@ -64,6 +69,9 @@ export default new Vuex.Store({
     },
     destroyLoop (state) {
       this.state.Loop = 0
+    },
+    setNowSignal (state) {
+      this.state.nowSignal = state.cycle[state.Loop]
     }
   },
   actions: {
@@ -112,6 +120,7 @@ export default new Vuex.Store({
           commit('destroyLoop')
         }
       }, timeout || iterationArr.timeout)
+      commit('setNowSignal')
     },
     saveStateOnLocal ({ commit, dispatch }, data) {
       localStorage.setItem('save', JSON.stringify(data))
