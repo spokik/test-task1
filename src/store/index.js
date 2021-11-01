@@ -70,8 +70,8 @@ export default new Vuex.Store({
     destroyLoop (state) {
       this.state.Loop = 0
     },
-    setNowSignal (state) {
-      this.state.nowSignal = state.cycle[state.Loop]
+    setNowSignal (state, index) {
+      this.state.nowSignal = state.cycle[index || state.Loop]
     }
   },
   actions: {
@@ -107,6 +107,7 @@ export default new Vuex.Store({
     firstStart ({ commit }, index) {
       if (this.state.Loop === null) {
         commit('SelectLoop', index)
+        commit('setNowSignal', index)
       }
     },
     openRout ({ commit, dispatch }, { index, timeout }) {

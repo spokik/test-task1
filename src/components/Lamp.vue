@@ -7,7 +7,7 @@
     'green-lamp': isGreen,
     'yellow-lamp': isYellow
   }">
-   <div class="inner">{{time === 0 ? '' : Math.floor(time / 1000)}}</div>
+   <div class="inner">{{time === 0 ? '' : Math.floor(time / 1000)}} {{timeout}}</div>
   </div>
 </template>
 
@@ -27,8 +27,11 @@ export default {
     state () {
       return store.state
     },
-    statusTimer () {
-      return store.state.greenLight
+    timeout () {
+      if (this.light === store.state.nowSignal.flag) {
+        return store.state.nowSignal.timeout
+      }
+      return ''
     },
     isRed () {
       if (this.light === 'RED') {
@@ -62,11 +65,7 @@ export default {
     }
   },
   watch: {
-    statusTimer (val, oldVal) {
-      if (val) {
-        this.timer()
-      }
-    },
+
     time (val, oldVal) {
       this.$store.dispatch('saveStateOnLocal', { time: val, Loop: this.$store.state.Loop })
       if (val > 3000) {
@@ -86,7 +85,7 @@ export default {
     }
   },
   methods: {
-    timer () {
+    timer (timeout) {
       const load = JSON.parse(localStorage.getItem('save'))
       if (load.time > 100 && load.Loop === 2) {
         const timeout = load.time
@@ -95,7 +94,6 @@ export default {
           this.time -= timeout / timeout * 100
         }, timeout / timeout * 100)
       } else {
-        const timeout = this.state.cycle[this.state.Loop].timeout
         this.time = timeout
         setInterval(() => {
           this.time -= timeout / timeout * 100
