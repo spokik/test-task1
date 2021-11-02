@@ -31,8 +31,8 @@ export default new Vuex.Store({
         timeout: 3000 // 3000
       }
     ],
-    Loop: null,
-    nowSignal: null,
+    Loop: null, // итератор цикла светофора
+    nowSignal: null, // обЪект активного на данный момент сигнала
     redLight: false,
     yellowLight: false,
     greenLight: false
@@ -113,7 +113,7 @@ export default new Vuex.Store({
     openRout ({ commit, dispatch }, { index, timeout }) {
       dispatch('firstStart', index)
       const iterationArr = this.state.cycle[this.state.Loop]
-      dispatch('activeLamp', iterationArr.flag)
+      // dispatch('activeLamp', iterationArr.flag)
       setTimeout(() => {
         if (this.state.Loop < 3) {
           commit('plusLoop')

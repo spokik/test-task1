@@ -1,13 +1,13 @@
 <template>
   <div class="" v-bind:class="{
-    'active-red': isRedActive && isRed,
-    'active-green': isGreenActive  && isGreen,
-    'active-yellow': isYellowActive  && isYellow,
+    'active-red': isRedActive && isRed && isActive,
+    'active-green': isGreenActive  && isGreen && isActive,
+    'active-yellow': isYellowActive  && isYellow && isActive,
     'red-lamp': isRed,
     'green-lamp': isGreen,
     'yellow-lamp': isYellow
   }">
-   <div class="inner">{{time === 0 ? '' : Math.floor(time / 1000)}} {{timeout}}</div>
+   <div class="inner">{{ showTimer }}</div>
   </div>
 </template>
 
@@ -31,6 +31,21 @@ export default {
       if (this.light === store.state.nowSignal.flag) {
         return store.state.nowSignal.timeout
       }
+      return ''
+    },
+    showTimer () {
+      if (this.light === 'RED' && this.isRedActive) {
+        return this.time
+      } else if (this.light === 'YELLOW' && this.isYellowActive) {
+        return this.time
+      } else if (this.light === 'GREEN' && this.isGreenActive) {
+        return this.time
+      } else {
+        return ''
+      }
+    },
+    statusTimer () {
+      this.timer(store.state.nowSignal.timeout)
       return ''
     },
     isRed () {
@@ -64,8 +79,8 @@ export default {
       return store.state.nowSignal.flag === 'YELLOW'
     }
   },
+  //* моргание за 3 секунды до смены сигнала
   watch: {
-
     time (val, oldVal) {
       this.$store.dispatch('saveStateOnLocal', { time: val, Loop: this.$store.state.Loop })
       if (val > 3000) {
@@ -79,21 +94,26 @@ export default {
       if (val === 0) {
         setTimeout(() => {
           this.isActive = false
-          console.log('end')
         }, 500)
+      }
+    },
+    statusTimer (val, oldVal) {
+      if (val) {
+        this.timer()
       }
     }
   },
   methods: {
+    // обратный отсчет внутри компонента. В стейте обратный отсчет не хранится ...
     timer (timeout) {
-      const load = JSON.parse(localStorage.getItem('save'))
-      if (load.time > 100 && load.Loop === 2) {
+      const load = JSON.parse(localStorage.getItem('save')) // Загружаемданные пользователя
+      if (load.time > 100 && load.Loop === this.state.nowSignal.id) { // старт таймера с учетом данных пользователя
         const timeout = load.time
         this.time = timeout
         setInterval(() => {
           this.time -= timeout / timeout * 100
         }, timeout / timeout * 100)
-      } else {
+      } else { // старт таймера по дефолту
         this.time = timeout
         setInterval(() => {
           this.time -= timeout / timeout * 100

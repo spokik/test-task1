@@ -1,9 +1,9 @@
 <template>
   <div class="grey-box">
     <h1>green</h1>
-    <Lamp light='GREEN'/>
     <Lamp light='RED'/>
     <Lamp light='YELLOW'/>
+    <Lamp light='GREEN'/>
   </div>
 </template>
 

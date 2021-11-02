@@ -1,9 +1,9 @@
 <template>
   <div class="grey-box">
     <h1>red</h1>
-    <RedLamp/>
-    <YellowLamp/>
-    <GreenLamp/>
+    <Lamp light='RED'/>
+    <Lamp light='YELLOW'/>
+    <Lamp light='GREEN'/>
   </div>
 </template>
 
@@ -11,19 +11,19 @@
 import store from '../store/index'
 
 // @ is an alias to /src
-import GreenLamp from '@/components/Green-Lamp.vue'
-import RedLamp from '@/components/Red-Lamp.vue'
-import YellowLamp from '@/components/Yellow-Lamp.vue'
+import Lamp from '@/components/Lamp.vue'
 
 export default {
   name: 'red',
-  mounted () {
+  created () {
     const load = JSON.parse(localStorage.getItem('save'))
-    if ((load && load.time > 100 && load.Loop === 0)) {
+    if (load && load.time > 100 && load.Loop === 0) {
       store.dispatch('openRout', { index: 0, timeout: load.time })
     } else {
       store.dispatch('openRout', { index: 0, timeout: this.$store.state.cycle[0].timeout })
     }
+  },
+  mounted () {
     this.$store.watch(
       (state, getters) => state.Loop,
       (newValue, oldValue) => {
@@ -37,9 +37,7 @@ export default {
     }
   },
   components: {
-    GreenLamp,
-    RedLamp,
-    YellowLamp
+    Lamp
   }
 }
 </script>
